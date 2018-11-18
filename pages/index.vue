@@ -526,8 +526,8 @@ $verdeOscuro: #00b894
 // map and container
 .container,
 .layout
-  padding: 0
-  height: 100%
+  padding: 0 !important
+  height: 100% !important
   #map
     height: 100%
     width: 100%
@@ -636,10 +636,10 @@ $verdeOscuro: #00b894
 
 // sidebar
 .v-navigation-drawer
-  position: absolute
+  position: absolute !important
   left: 0
-  z-index: 1000
-  background-color: #f8f8f8
+  z-index: 1000 !important
+  background-color: #f8f8f8 !important
   border-right: 1px solid rgba(0,0,0,0.12)
   .container,
   .layout

@@ -66,7 +66,7 @@ export default {
 
 <style lang="stylus">
 .container
-  padding: 0
+  padding: 0 !important
 .login
   background-image: url("../assets/images/background-login.jpg")
   background-size: cover
