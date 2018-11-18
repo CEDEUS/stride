@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="sass">
 .container
   padding: 0 !important
 .login
@@ -76,8 +76,8 @@ export default {
 .v-toolbar__title
   color: white
 .v-alert
-  margin-bottom 15px
-  font-size 0.9em
+  margin-bottom: 15px
+  font-size: 0.9em
 .submit
   color: white !important
 </style>

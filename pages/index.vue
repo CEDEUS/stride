@@ -526,7 +526,7 @@ $verdeOscuro: #00b894
 // map and container
 .container,
 .layout
-  padding: 0 !important
+  padding: 0
   height: 100% !important
   #map
     height: 100%
@@ -643,7 +643,7 @@ $verdeOscuro: #00b894
   border-right: 1px solid rgba(0,0,0,0.12)
   .container,
   .layout
-    height: unset
+    height: unset !important
     text-align: center
     img
       height: 40px
