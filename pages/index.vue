@@ -660,7 +660,7 @@ $verdeOscuro: #00b894
       position: relative
       top: 10px
   .container
-    padding: 20px
+    padding: 20px !important
     .color
       .red,
       .yellow,
