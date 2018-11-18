@@ -7,7 +7,7 @@
         </nuxt-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items>
+      <v-toolbar-items class="el-menu">
         <v-btn
           class="login-button"
           v-if="!isAuthenticated"
@@ -72,10 +72,14 @@ header
     h1
       font-weight: 400
       color: white
+      font-size: 1.2em
 .menu,
 .login-button
   color: white !important
   padding: 0 12px !important
+.el-menu
+  position: absolute
+  right: 1px
   .bullet-down
     padding-left: 5px
 </style>
