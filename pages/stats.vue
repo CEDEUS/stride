@@ -52,6 +52,7 @@ export default {
 <style lang="sass">
 .stats
   margin-top: 50px
+  margin-bottom: 40px
   .v-toolbar__title
     color: white
   p
