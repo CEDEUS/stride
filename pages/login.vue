@@ -52,11 +52,9 @@ export default {
               password: this.password
             }
           })
-          this.$router.push('/')
         } catch (e) {
           this.alert = !this.alert
-          this.error = e
-          console.log(this.error)
+          console.log(e)
         }
       }
     }

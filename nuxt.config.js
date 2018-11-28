@@ -42,6 +42,7 @@ module.exports = {
   ** Auth module configuration
   */
   auth: {
+    plugins: ['~/plugins/auth.js'],
     strategies: {
       local: {
         endpoints: {
@@ -56,13 +57,13 @@ module.exports = {
     localStorage: false,
     redirect: {
       login: '/login',
-      logout: '/',
-      home: '/stats'
-    },
-    router: {
-      middleware: ['auth']
+      logout: '/login',
+      home: '/'
     },
     watchLoggedIn: true
+  },
+  router: {
+    middleware: ['auth']
   },
   /*
   ** Build configuration

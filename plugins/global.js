@@ -3,7 +3,6 @@ let L = null
 if (process.client) {
   L = require('leaflet')
   require('leaflet.markercluster')
-  require('leaflet.markercluster.layersupport')
 }
 
 Vue.mixin({

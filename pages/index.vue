@@ -312,10 +312,10 @@ export default {
     }
   },
   created () {
-    this.clusterConfig()
     this.retrievePoints()
   },
   mounted () {
+    this.clusterConfig()
     this.initMap()
   },
   methods: {
