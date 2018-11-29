@@ -37,7 +37,6 @@ export default {
     getUser () {
       this.$axios.$get('/api/me/')
         .then((res) => {
-          console.log(res)
           this.userSince = new Date(res.date_joined).toLocaleString()
           this.todayObservedPerson = res.today_observed_person
           this.totalObservedPerson = res.total_observed_person

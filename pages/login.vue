@@ -11,6 +11,7 @@
             v-if="alert=alert"
             :value="true"
             type="error"
+            class="error"
           >
             Wrong username or password
           </v-alert>
@@ -78,4 +79,6 @@ export default {
   font-size: 0.9em
 .submit
   color: white !important
+.error
+  margin-bottom: 15px
 </style>
