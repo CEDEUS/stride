@@ -8,14 +8,14 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="el-menu">
-        <v-btn
+      <!--  <v-btn
           class="login-button"
-          v-if="!isAuthenticated"
+          v-if="isAuthenticated === false"
           to="/login"
           color="flatBlue"
         >
           LOGIN
-        </v-btn>
+        </v-btn>-->
         <v-menu
           v-if="isAuthenticated"
           offset-y
@@ -58,7 +58,7 @@ export default {
   methods: {
     async logout () {
       await this.$auth.logout()
-      this.$router.push('/')
+      this.$router.push('/login')
     }
   }
 }

@@ -273,7 +273,6 @@ export default {
   computed: {
     ...mapGetters(['isAuthenticated'])
   },
-  auth: false,
   data () {
     return {
       locations: [
