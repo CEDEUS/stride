@@ -53,6 +53,7 @@ export default {
               password: this.password
             }
           })
+          this.$router.push('/')
         } catch (e) {
           this.alert = !this.alert
           console.log(e)

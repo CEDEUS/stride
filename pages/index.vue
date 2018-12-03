@@ -62,22 +62,6 @@
             <v-list-tile-title>Locations</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile v-if="isAuthenticated && !myPoints" @click="activateMyPoints">
-          <v-list-tile-action>
-            <v-icon>person_pin_circle</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>My points</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-if="isAuthenticated && allPoints" @click="activateMyPoints">
-          <v-list-tile-action>
-            <v-icon>person_pin_circle</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>All points</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
       </v-list>
       <hr class="v-divider theme--light">
         <v-container v-show="!drawers.mini && filtersSelected">
@@ -295,6 +279,7 @@ export default {
         mini: true,
         right: null
       },
+      ownPoints: null,
       abilities: ['Able', 'Impaired', 'Assisted'],
       ages: ['Child', 'Teenager', 'Adult', 'Elderly'],
       filters: {
@@ -305,9 +290,7 @@ export default {
       },
       filtered: [],
       filtersSelected: true,
-      locationsSelected: false,
-      myPoints: false,
-      allPoints: false
+      locationsSelected: false
     }
   },
   created () {
@@ -412,19 +395,6 @@ export default {
       if (this.filtersSelected === true && this.locationsSelected === false) {
         this.locationsSelected = true
         this.filtersSelected = false
-      }
-    },
-    activateMyPoints () {
-      if (this.myPoints === false && this.allPoints === false) {
-        this.myPoints = true
-        this.allPoints = true
-        this.mAll.clearLayers()
-      } else {
-        this.myPoints = false
-        this.allPoints = false
-        this.loading = true
-        this.mAll.clearLayers()
-        this.retrievePoints()
       }
     }
   }

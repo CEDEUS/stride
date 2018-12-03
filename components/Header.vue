@@ -38,6 +38,9 @@
             <v-list-tile to="/stats">
               <v-list-tile-title>My statistics</v-list-tile-title>
             </v-list-tile>
+            <v-list-tile to="/mypoints">
+              <v-list-tile-title>My points</v-list-tile-title>
+            </v-list-tile>
             <v-list-tile>
               <v-list-tile-title @click="logout()">Logout</v-list-tile-title>
             </v-list-tile>
