@@ -19,9 +19,9 @@
             <v-text-field color="verdeOscuro" prepend-icon="person" name="username" label="Username" type="text" autocomplete="on" required v-model="username"></v-text-field>
             <v-text-field color="verdeOscuro" id="password" prepend-icon="lock" name="password" label="Password" type="password" autocomplete="on" required v-model="password"></v-text-field>
             <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn to="/register">Register</v-btn>
-                <v-btn class="submit" type="submit" color="verdeOscuro">Login</v-btn>
+              <v-btn to="/register">Register</v-btn>
+              <v-spacer></v-spacer>
+              <v-btn class="submit" type="submit" color="verdeOscuro">Login</v-btn>
             </v-card-actions>
           </v-form>
         </v-card-text>
