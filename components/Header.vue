@@ -7,6 +7,13 @@
         </nuxt-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn
+        v-if="isAuthenticated === false"
+        color="flatBlue"
+        class="download"
+        href="https://drive.google.com/file/d/1SxE2uOwMjVN19o_M_H8MVgJgr9qK0-7Q/view?usp=sharing"
+        target="_blank">
+        Get the App</v-btn>
       <v-toolbar-items class="el-menu">
       <!--  <v-btn
           class="login-button"
@@ -38,8 +45,13 @@
             <v-list-tile to="/stats">
               <v-list-tile-title>My statistics</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile to="/mypoints">
+            <!-- <v-list-tile to="/mypoints">
               <v-list-tile-title>My points</v-list-tile-title>
+            </v-list-tile> --> 
+            <v-list-tile
+              href="https://drive.google.com/file/d/1SxE2uOwMjVN19o_M_H8MVgJgr9qK0-7Q/view?usp=sharing"
+              target="_blank">
+              <v-list-tile-title>Download the app</v-list-tile-title>
             </v-list-tile>
             <v-list-tile>
               <v-list-tile-title @click="logout()">Logout</v-list-tile-title>
@@ -85,4 +97,7 @@ header
   right: 1px
   .bullet-down
     padding-left: 5px
+.download
+  .v-btn__content
+    color: white
 </style>

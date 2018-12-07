@@ -47,23 +47,25 @@ export default {
   },
   methods: {
     async register () {
-      await this.$axios.$post('/api/users/create/', {
-        'email': this.email,
-        'username': this.username,
-        'password': this.password
-      })
-        .then((res) => {
-          this.$router.push('/login')
+      try {
+        await this.$axios.post('/api/users/create/', {
+          email: this.email,
+          username: this.username,
+          password: this.password
         })
-        .catch(function (error) {
-          console.log(error)
-        })
+        this.$router.push('/login')
+      } catch (e) {
+        console.log(e)
+        this.alert = !this.alert
+      }
     }
   }
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
+.container
+  padding: 0
 .register
   background-image: url("../assets/images/background-login.jpg")
   background-size: cover
@@ -71,4 +73,6 @@ export default {
   color: white
 .submit
   color: white !important
+.error
+  margin-bottom: 20px
 </style>
