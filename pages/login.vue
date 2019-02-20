@@ -23,6 +23,9 @@
               <v-spacer></v-spacer>
               <v-btn class="submit" type="submit" color="verdeOscuro">Login</v-btn>
             </v-card-actions>
+            <nuxt-link to="/example" class="go-to-map">
+            <p>SEE THE MAP</p>
+            </nuxt-link>
           </v-form>
         </v-card-text>
       </v-card>
@@ -83,4 +86,10 @@ export default {
   color: white !important
 .error
   margin-bottom: 15px
+.go-to-map
+  position: relative
+  top: 10px
+  font-weight: 500
+  text-decoration: none
+  text-align: center
 </style>

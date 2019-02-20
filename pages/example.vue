@@ -254,6 +254,7 @@ if (process.client) {
 }
 
 export default {
+  auth: false,
   computed: {
     ...mapGetters(['isAuthenticated'])
   },
@@ -322,7 +323,11 @@ export default {
     },
     // retrieves points from api and then loads map
     async retrievePoints () {
-      await this.$axios.$get('/observed/?limit=250')
+      await this.$axios.$get('/observed/?limit=250',
+        { headers: {
+          Authorization: 'Token 14ff55216b4c47b235eefdcfa9def74e4817cb20'
+        } }
+      )
         .then((res) => {
           this.points = res.results
           this.points.forEach(element => {
