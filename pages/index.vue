@@ -234,6 +234,7 @@
                 >
                 </v-switch>
               </v-flex>
+              <button @click="getAllData()">Get Data</button>
           </v-layout>
         </v-container>
         <v-container class="locations" v-show="!drawers.mini && locationsSelected">
@@ -322,10 +323,11 @@ export default {
     },
     // retrieves points from api and then loads map
     async retrievePoints () {
-      await this.$axios.$get('/observed/?limit=250')
+      await this.$axios.$get('/observed/?limit=350')
         .then((res) => {
           this.points = res.results
           this.points.forEach(element => {
+            let id = element.id
             let coords = element.data
             let ability = element.ability
             let age = element.age
@@ -335,6 +337,7 @@ export default {
               let createdBy = element.created_by.username
               for (let index = 0; index < coords.length; index++) {
                 this.markers.push({
+                  'id': id,
                   'created_by': createdBy,
                   'lat': coords[index].lat,
                   'lon': coords[index].lon,
@@ -349,6 +352,7 @@ export default {
             } else {
               for (let index = 0; index < coords.length; index++) {
                 this.markers.push({
+                  'id': id,
                   'created_by': 'none',
                   'lat': coords[index].lat,
                   'lon': coords[index].lon,
@@ -397,6 +401,24 @@ export default {
         this.locationsSelected = true
         this.filtersSelected = false
       }
+    },
+    getAllData () {
+      this.$axios.$post('/csv/', {
+        csv: 1000
+      }
+      )
+        .then((response) => {
+          console.log(response)
+          const url = window.URL.createObjectURL(new Blob([response]))
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute('download', 'file.csv')
+          document.body.appendChild(link)
+          link.click()
+        })
+    },
+    getFilteredData () {
+
     }
   }
 }
