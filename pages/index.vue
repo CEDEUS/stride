@@ -256,7 +256,7 @@ if (process.client) {
 
 export default {
   computed: {
-    ...mapGetters(['isAuthenticated'])
+    ...mapGetters(['isAuthenticated', 'loggedInUser'])
   },
   data () {
     return {
@@ -323,9 +323,9 @@ export default {
     },
     // retrieves points from api and then loads map
     async retrievePoints () {
-      await this.$axios.$get('/observed/?limit=350')
+      await this.$axios.$get('/observed/')
         .then((res) => {
-          this.points = res.results
+          this.points = res
           this.points.forEach(element => {
             let id = element.id
             let coords = element.data
