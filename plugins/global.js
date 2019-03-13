@@ -26,7 +26,7 @@ Vue.mixin({
       return array.filter((item) => filterKeys.every((key) => (filters[key].indexOf(item[key]) !== -1)))
     },
     // unsets filtered marker group and load filtered markers
-    filter (theArray, prop, parent, clear) {
+    filterOk (theArray, prop, parent, clear) {
       clear.clearLayers()
       if ((theArray.indexOf(prop)) >= 0) {
         theArray.splice(theArray.indexOf(prop), 1)
@@ -35,7 +35,6 @@ Vue.mixin({
       }
       this.filtered = this.filterEngine(parent, this.filters)
       this.initMarkers(this.filtered)
-      console.log(this.filtered)
     },
     // popup format
     templatePopup (prop1, prop2, prop3, prop4, prop5, prop6) {

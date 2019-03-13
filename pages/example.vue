@@ -90,7 +90,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.score, 'R', markers, mAll)"
+                  @change="filterOk(filters.score, 'R', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -98,7 +98,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.score, 'Y', markers, mAll)"
+                  @change="filterOk(filters.score, 'Y', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -106,7 +106,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.score, 'G', markers, mAll)"
+                  @change="filterOk(filters.score, 'G', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -140,7 +140,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.sex, 'H', markers, mAll)"
+                  @change="filterOk(filters.sex, 'H', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -148,7 +148,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.sex, 'M', markers, mAll)"
+                  @change="filterOk(filters.sex, 'M', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -156,7 +156,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.sex, 'O', markers, mAll)"
+                  @change="filterOk(filters.sex, 'O', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -173,7 +173,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.ability, '1', markers, mAll)"
+                  @change="filterOk(filters.ability, '1', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -181,7 +181,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.ability, '2', markers, mAll)"
+                  @change="filterOk(filters.ability, '2', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -189,7 +189,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.ability, '3', markers, mAll)"
+                  @change="filterOk(filters.ability, '3', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -206,7 +206,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.age, 1, markers, mAll)"
+                  @change="filterOk(filters.age, 1, markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -214,7 +214,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.age, 2, markers, mAll)"
+                  @change="filterOk(filters.age, 2, markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -222,7 +222,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.age, 3, markers, mAll)"
+                  @change="filterOk(filters.age, 3, markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -230,7 +230,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.age, 4, markers, mAll)"
+                  @change="filterOk(filters.age, 4, markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -326,10 +326,11 @@ export default {
       await this.$axios.$get('/observed/',
         { headers: {
           Authorization: 'Token 14ff55216b4c47b235eefdcfa9def74e4817cb20'
-        } }
+        }
+        }
       )
         .then((res) => {
-          this.points = res.results
+          this.points = res
           this.points.forEach(element => {
             let coords = element.data
             let ability = element.ability

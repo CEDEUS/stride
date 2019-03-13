@@ -62,6 +62,14 @@
             <v-list-tile-title>Locations</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>place</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Save data <button @click="getAllData" class="download-data">All</button> <button @click="getSelectedData" class="download-data">On map</button></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
       <hr class="v-divider theme--light">
         <v-container v-show="!drawers.mini && filtersSelected">
@@ -70,6 +78,30 @@
             wrap
             class="dark--text filters"
           >
+            <v-btn
+              @click="retrievePoints('/observed/')"
+              v-show="this.myPoints = true"
+              color="flatBlue"
+              block
+              dark>
+              All points
+            </v-btn>
+            <v-flex class="xs12">
+              <hr class="v-divider theme--light divider-top">
+            </v-flex>
+            <v-flex class="xs12">
+            <h3 class="text-xs-center">By user</h3>
+            </v-flex>
+            <v-flex class="xs8">
+            <v-autocomplete
+              v-model="selectedUser"
+              :items="userList"
+            >
+            </v-autocomplete>
+            </v-flex>
+            <v-flex class="xs4 users-button">
+              <button @click="retrievePoints('/observed/?created_by__username=' + selectedUser)">GO</button>
+            </v-flex>
             <h3 class="text-xs-center">Filters</h3>
             <p class="text-xs-center lead">Toggle switches to filter markers</p>
             <v-flex class="xs12">
@@ -90,7 +122,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.score, 'R', markers, mAll)"
+                  @change="filterOk(filters.score, 'R', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -98,7 +130,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.score, 'Y', markers, mAll)"
+                  @change="filterOk(filters.score, 'Y', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -106,7 +138,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.score, 'G', markers, mAll)"
+                  @change="filterOk(filters.score, 'G', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -140,7 +172,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.sex, 'H', markers, mAll)"
+                  @change="filterOk(filters.sex, 'H', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -148,7 +180,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.sex, 'M', markers, mAll)"
+                  @change="filterOk(filters.sex, 'M', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -156,7 +188,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.sex, 'O', markers, mAll)"
+                  @change="filterOk(filters.sex, 'O', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -173,7 +205,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.ability, '1', markers, mAll)"
+                  @change="filterOk(filters.ability, '1', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -181,7 +213,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.ability, '2', markers, mAll)"
+                  @change="filterOk(filters.ability, '2', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -189,7 +221,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.ability, '3', markers, mAll)"
+                  @change="filterOk(filters.ability, '3', markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -206,7 +238,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.age, 1, markers, mAll)"
+                  @change="filterOk(filters.age, 1, markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -214,7 +246,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.age, 2, markers, mAll)"
+                  @change="filterOk(filters.age, 2, markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -222,7 +254,7 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.age, 3, markers, mAll)"
+                  @change="filterOk(filters.age, 3, markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
@@ -230,11 +262,10 @@
                 <v-switch
                   value
                   input-value="true"
-                  @change="filter(filters.age, 4, markers, mAll)"
+                  @change="filterOk(filters.age, 4, markers, mAll)"
                 >
                 </v-switch>
               </v-flex>
-              <button @click="getAllData()">Get Data</button>
           </v-layout>
         </v-container>
         <v-container class="locations" v-show="!drawers.mini && locationsSelected">
@@ -292,11 +323,16 @@ export default {
       },
       filtered: [],
       filtersSelected: true,
-      locationsSelected: false
+      locationsSelected: false,
+      userList: [],
+      myPoints: true,
+      selectedUser: '',
+      selectedPoints: null
     }
   },
   created () {
-    this.retrievePoints()
+    this.retrievePoints('/observed/?created_by__username=' + this.loggedInUser)
+    this.getUserList()
   },
   mounted () {
     this.clusterConfig()
@@ -322,12 +358,14 @@ export default {
       })
     },
     // retrieves points from api and then loads map
-    async retrievePoints () {
-      await this.$axios.$get('/observed/')
+    retrievePoints (endpoint) {
+      this.loading = true
+      this.markers = []
+      this.selectedPoints = []
+      this.$axios.$get(endpoint)
         .then((res) => {
           this.points = res
           this.points.forEach(element => {
-            let id = element.id
             let coords = element.data
             let ability = element.ability
             let age = element.age
@@ -337,7 +375,7 @@ export default {
               let createdBy = element.created_by.username
               for (let index = 0; index < coords.length; index++) {
                 this.markers.push({
-                  'id': id,
+                  'id': coords[index].id,
                   'created_by': createdBy,
                   'lat': coords[index].lat,
                   'lon': coords[index].lon,
@@ -348,11 +386,12 @@ export default {
                   'created_at': date,
                   'category': coords[index].category
                 })
+                this.selectedPoints.push(coords[index].id)
               }
             } else {
               for (let index = 0; index < coords.length; index++) {
                 this.markers.push({
-                  'id': id,
+                  'id': coords[index].id,
                   'created_by': 'none',
                   'lat': coords[index].lat,
                   'lon': coords[index].lon,
@@ -363,6 +402,7 @@ export default {
                   'created_at': date,
                   'category': coords[index].category
                 })
+                this.selectedPoints.push(coords[index].id)
               }
             }
           })
@@ -374,6 +414,9 @@ export default {
     },
     // function that load markers in map and clusters them
     initMarkers (markersArray) {
+      if (this.mAll !== null) {
+        this.mAll.clearLayers()
+      }
       for (let index = 0; index < markersArray.length; index++) {
         let lat = (markersArray[index].lat)
         let lon = (markersArray[index].lon)
@@ -403,22 +446,62 @@ export default {
       }
     },
     getAllData () {
-      this.$axios.$post('/csv/', {
-        csv: 1000
+      let today = new Date()
+      let dd = today.getDate()
+      let mm = today.getMonth() + 1
+      let yyyy = today.getFullYear()
+      if (dd < 10) {
+        dd = '0' + dd
       }
-      )
+      if (mm < 10) {
+        mm = '0' + mm
+      }
+      today = mm + '-' + dd + '-' + yyyy
+
+      const formData = new FormData()
+      formData.append('all', true)
+      this.$axios.$post('/csv/', formData)
         .then((response) => {
-          console.log(response)
           const url = window.URL.createObjectURL(new Blob([response]))
           const link = document.createElement('a')
           link.href = url
-          link.setAttribute('download', 'file.csv')
+          link.setAttribute('download', 'stride_' + today + '.csv')
           document.body.appendChild(link)
           link.click()
         })
     },
-    getFilteredData () {
+    getSelectedData () {
+      let today = new Date()
+      let dd = today.getDate()
+      let mm = today.getMonth() + 1
+      let yyyy = today.getFullYear()
+      if (dd < 10) {
+        dd = '0' + dd
+      }
+      if (mm < 10) {
+        mm = '0' + mm
+      }
+      today = mm + '-' + dd + '-' + yyyy
 
+      const formData = new FormData()
+      formData.append('csv', this.selectedPoints)
+      this.$axios.$post('/csv/', formData)
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response]))
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute('download', 'stride_' + today + '.csv')
+          document.body.appendChild(link)
+          link.click()
+        })
+    },
+    getUserList () {
+      this.$axios.$get('/api/users/')
+        .then((response) => {
+          response.forEach(element => {
+            this.userList.push(element.username)
+          })
+        })
     }
   }
 }
@@ -624,4 +707,29 @@ $verdeOscuro: #00b894
 .v-icon,
 .v-list__tile__title
   cursor: pointer
+
+.divider-top
+  margin-top: 15px
+  margin-bottom: 15px
+
+.users-button button
+  padding: 15px 20px
+  display: block
+  float: right
+  color: white
+  border-radius: 2px
+  background-color: $verdeOscuro
+  &:hover
+    opacity: 0.8
+  outline: none
+
+.download-data
+  margin-left: 10px
+  padding: 0 10px
+  border: 1px solid $verdeOscuro
+  line-height: 1
+  color: $verdeOscuro
+  outline: none
+  &:hover
+    opacity: 0.8
 </style>
