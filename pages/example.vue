@@ -330,7 +330,7 @@ export default {
         }
       )
         .then((res) => {
-          this.points = res
+          this.points = res.results
           this.points.forEach(element => {
             let coords = element.data
             let ability = element.ability
