@@ -79,7 +79,7 @@
             class="dark--text filters"
           >
             <v-btn
-              @click="retrievePoints('/observed/')"
+              @click="retrievePoints('/observed/?limit=1000')"
               v-show="this.myPoints = true"
               color="flatBlue"
               block
@@ -364,7 +364,7 @@ export default {
       this.selectedPoints = []
       this.$axios.$get(endpoint)
         .then((res) => {
-          this.points = res
+          this.points = res.results
           this.points.forEach(element => {
             let coords = element.data
             let ability = element.ability
@@ -498,7 +498,7 @@ export default {
     getUserList () {
       this.$axios.$get('/api/users/')
         .then((response) => {
-          response.forEach(element => {
+          response.results.forEach(element => {
             this.userList.push(element.username)
           })
         })
