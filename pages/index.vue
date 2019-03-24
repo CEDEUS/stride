@@ -331,7 +331,7 @@ export default {
     }
   },
   created () {
-    this.retrievePoints('/observed/?created_by__username=' + this.loggedInUser)
+    this.retrievePoints('/observed/?created_by__username=' + this.loggedInUser + '&limit=1000')
     this.getUserList()
   },
   mounted () {
