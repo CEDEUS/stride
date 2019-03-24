@@ -100,7 +100,7 @@
             </v-autocomplete>
             </v-flex>
             <v-flex class="xs4 users-button">
-              <button @click="retrievePoints('/observed/?created_by__username=' + selectedUser)">GO</button>
+              <button @click="retrievePoints('/observed/?created_by__username=' + selectedUser + '&limit=1000')">GO</button>
             </v-flex>
             <h3 class="text-xs-center">Filters</h3>
             <p class="text-xs-center lead">Toggle switches to filter markers</p>
@@ -496,7 +496,7 @@ export default {
         })
     },
     getUserList () {
-      this.$axios.$get('/api/users/')
+      this.$axios.$get('/api/users/?limit=1000')
         .then((response) => {
           response.results.forEach(element => {
             this.userList.push(element.username)
