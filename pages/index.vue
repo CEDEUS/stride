@@ -79,7 +79,7 @@
             class="dark--text filters"
           >
             <v-btn
-              @click="retrievePoints('/observed/?limit=1000')"
+              @click="retrievePoints('/observed/?limit=4000')"
               v-show="this.myPoints = true"
               color="flatBlue"
               block
@@ -100,7 +100,7 @@
             </v-autocomplete>
             </v-flex>
             <v-flex class="xs4 users-button">
-              <button @click="retrievePoints('/observed/?created_by__username=' + selectedUser + '&limit=1000')">GO</button>
+              <button @click="retrievePoints('/observed/?created_by__username=' + selectedUser + '&limit=4000')">GO</button>
             </v-flex>
             <h3 class="text-xs-center">Filters</h3>
             <p class="text-xs-center lead">Toggle switches to filter markers</p>
@@ -331,7 +331,7 @@ export default {
     }
   },
   created () {
-    this.retrievePoints('/observed/?created_by__username=' + this.loggedInUser + '&limit=1000')
+    this.retrievePoints('/observed/?created_by__username=' + this.loggedInUser + '&limit=4000')
     this.getUserList()
   },
   mounted () {
