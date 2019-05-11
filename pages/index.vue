@@ -299,7 +299,8 @@ export default {
         { name: 'Medellín', flag: require('~/assets/images/flags/co.svg'), center: [6.244747, -75.574828] },
         { name: 'Lagos', flag: require('~/assets/images/flags/ng.svg'), center: [6.455027, 3.384082] },
         { name: 'Cheltenham', flag: require('~/assets/images/flags/gb-eng.svg'), center: [51.896519, -2.078428] },
-        { name: 'Dhaka', flag: require('~/assets/images/flags/bd.svg'), center: [23.716111, 90.396111] }
+        { name: 'Dhaka', flag: require('~/assets/images/flags/bd.svg'), center: [23.716111, 90.396111] },
+        { name: 'Rotterdam', flag: require('~/assets/images/flags/nl.svg'), center: [51.9225, 4.47917] }
       ],
       map: null,
       tilelayer: null,
