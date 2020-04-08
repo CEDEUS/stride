@@ -27,20 +27,31 @@ export default {
       userSince: null,
       todayObservedPerson: null,
       totalObservedPerson: null,
-      totalPointsVoted: null
+      totalPointsVoted: null,
+      userID: null
     }
   },
   created () {
     this.getUser()
   },
   methods: {
-    getUser () {
-      this.$axios.$get('/api/me/')
+    async getUser () {
+      await this.$axios.$get('/api/users/me/')
+        .then((res) => {
+          this.userID = res.id
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      await this.$axios.$get('/api/users/' + this.userID + '/')
         .then((res) => {
           this.userSince = new Date(res.date_joined).toLocaleString()
           this.todayObservedPerson = res.today_observed_person
           this.totalObservedPerson = res.total_observed_person
           this.totalPointsVoted = res.total_points_voted
+        })
+        .catch((error) => {
+          console.log(error)
         })
     }
   }

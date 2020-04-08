@@ -35,33 +35,34 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    baseURL: 'http://146.155.17.18:18080',
+    baseURL: 'http://strideapi.cedeus.cl',
     credentials: true
   },
+
   /*
   ** Auth module configuration
   */
-  auth: {
-    plugins: ['~/plugins/auth.js'],
-    strategies: {
-      local: {
-        endpoints: {
-          login: { url: '/api/jwt/create/', method: 'post', propertyName: 'token' },
-          user: { url: '/api/me/', method: 'get', propertyName: 'username' },
-          logout: false,
-        },
-        tokenRequired: true,
-        tokenType: 'JWT'
-      }
-    },
-    localStorage: false,
-    redirect: {
-      login: '/login',
-      logout: '/login',
-      home: '/'
-    },
-    watchLoggedIn: true
+ auth: {
+  localStorage: false,
+  strategies: {
+    local: {
+      endpoints: {
+        login: { url: '/auth/jwt/create/', method: 'post', propertyName: 'access' },
+        user: { url: '/api/users/me/', method: 'get', propertyName: 'username' },
+        logout: false,
+      },
+      tokenRequired: true,
+      tokenType: 'JWT'
+    }
   },
+  localStorage: false,
+  redirect: {
+    login: '/login',
+    logout: '/login',
+    home: '/'
+  },
+  watchLoggedIn: true
+},
   router: {
     middleware: ['auth']
   },
@@ -74,14 +75,17 @@ module.exports = {
       new VuetifyLoaderPlugin()
     ],
     extractCSS: true,
-    extend (config, ctx) {
+    extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
+          exclude: /(node_modules)/,
+          options: {
+            fix: true
+          }
         })
       }
       if (process.server) {

@@ -1,37 +1,54 @@
 <template>
-<v-container class="login" fluid fill-height>
-  <v-layout align-center justify-center>
-    <v-flex xs11 sm6 md4 lg3 class="form">
-      <v-card class="elevation-10">
-        <v-toolbar color="verdeOscuro">
-          <v-toolbar-title>Login</v-toolbar-title>
-        </v-toolbar>
-        <v-card-text>
-          <v-alert
-            v-if="alert=alert"
-            :value="true"
-            type="error"
-            class="error"
-          >
-            Wrong username or password
-          </v-alert>
-          <v-form method="post" @submit.prevent="login">
-            <v-text-field color="verdeOscuro" prepend-icon="person" name="username" label="Username" type="text" autocomplete="on" required v-model="username"></v-text-field>
-            <v-text-field color="verdeOscuro" id="password" prepend-icon="lock" name="password" label="Password" type="password" autocomplete="on" required v-model="password"></v-text-field>
-            <v-card-actions>
-              <v-btn to="/register">Register</v-btn>
-              <v-spacer></v-spacer>
-              <v-btn class="submit" type="submit" color="verdeOscuro">Login</v-btn>
-            </v-card-actions>
-            <nuxt-link to="/example" class="go-to-map">
-            <p>SEE THE MAP</p>
-            </nuxt-link>
-          </v-form>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-  </v-layout>
-</v-container>
+  <v-container class="login" fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-flex xs11 sm6 md4 lg3 class="form">
+        <v-card class="elevation-10">
+          <v-toolbar color="verdeOscuro">
+            <v-toolbar-title>Login</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <v-alert
+              v-if="alert=alert"
+              :value="true"
+              type="error"
+              class="error"
+            >Wrong username or password</v-alert>
+            <v-form method="post" @submit.prevent="login">
+              <v-text-field
+                color="verdeOscuro"
+                prepend-icon="person"
+                name="username"
+                label="Username"
+                type="text"
+                autocomplete="on"
+                required
+                v-model="username"
+              ></v-text-field>
+              <v-text-field
+                color="verdeOscuro"
+                id="password"
+                prepend-icon="lock"
+                name="password"
+                label="Password"
+                type="password"
+                autocomplete="on"
+                required
+                v-model="password"
+              ></v-text-field>
+              <v-card-actions>
+                <v-btn to="/register">Register</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn class="submit" type="submit" color="verdeOscuro">Login</v-btn>
+              </v-card-actions>
+              <nuxt-link to="/example" class="go-to-map">
+                <p>SEE THE MAP</p>
+              </nuxt-link>
+            </v-form>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
